@@ -1,38 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!-- Standard stuff - uses UTF-8 and the title -->
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    <title>CoderDojo - Mobile DHTML application skeleton file</title>
 
-   <!-- -------------------------------- -->
-   <!-- General mobile-friendly settings -->
    <meta name="HandheldFriendly" content="true" />
-   <!-- How to display the content -->
    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
-   <!-- On-screen icon: 114px x 114px - despite its name, it works for Android too -->
    <link rel="apple-touch-icon" href="images/jquery.png" />
 
    <!-- --------------------- -->
-   <!-- iOS-specifig settings -->
-   <!-- See http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html -->
-   <!-- Splash screen: 320px x 460px for iPhone -->
    <link rel="apple-touch-startup-image" href="images/startup.png"/>
-   <!-- Remove address bar, etc. -->
    <meta name="apple-mobile-web-app-capable" content="yes" />
-   <!-- Set the status bar: styles can also be "black" or "black-translucent" -->
    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-   <!-- Detect telephone numbers in the web page? -->
    <meta name="format-detection" content="telephone=no">
 
    <!-- JQuery Mobile files -->
-   <!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-   <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script -->
    <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
    <script src="js/jquery-2.1.0.min.js"></script>
    <script src="js/jquery.mobile-1.4.2.min.js"></script>
-   
+   <script src="cordova.js"></script>
+
+   <script type="text/javascript">
+
+      // The photo failed
+      function photoFail(message) {
+         alert('Failed because: ' + message);
+      }
+
+      // Photo was taken OK
+      function photoOK(imageData) {
+         var image = document.getElementById('photo');
+         image.src = "data:image/jpeg;base64," + imageData;
+      }
+
+      // Initialise the camera button
+      $(document).ready(function() {
+          $("#btnPic").click(function() {
+              navigator.camera.getPicture(photoOK, photoFail,
+		                          { quality: 50,
+                                            destinationType: Camera.DestinationType.DATA_URL
+                                          }); 
+          });
+      });
+
+   </script>
 
 </head>
 <body>
@@ -42,6 +53,7 @@
       <!-- The page header -->
       <div data-role="header" class="ui-header ui-bar-a" role="banner" data-position:"fixed">
          <div class="bannerbox" style="background-color:#3f8de0; height:109px">
+            <a id="btnPic" data-role="button" data-inline="true"><img src="images/camera.png" class="li-ui-icon" style="width:30px;"></a>
             <img id="logo" style="float:right" src="images/darts.jpg">
          </div>
       </div>
