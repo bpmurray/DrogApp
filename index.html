@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Standard stuff - uses UTF-8 and the title -->
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>CoderDojo - Mobile DHTML application skeleton file</title>
+
+   <!-- -------------------------------- -->
+   <!-- General mobile-friendly settings -->
+   <meta name="HandheldFriendly" content="true" />
+   <!-- How to display the content -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
+   <!-- On-screen icon: 114px x 114px - despite its name, it works for Android too -->
+   <link rel="apple-touch-icon" href="images/jquery.png" />
+
+   <!-- --------------------- -->
+   <!-- iOS-specifig settings -->
+   <!-- See http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html -->
+   <!-- Splash screen: 320px x 460px for iPhone -->
+   <link rel="apple-touch-startup-image" href="images/startup.png"/>
+   <!-- Remove address bar, etc. -->
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+   <!-- Set the status bar: styles can also be "black" or "black-translucent" -->
+   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+   <!-- Detect telephone numbers in the web page? -->
+   <meta name="format-detection" content="telephone=no">
+
+   <!-- JQuery Mobile files -->
+   <!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script -->
+   <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+   <script src="js/jquery-2.1.0.min.js"></script>
+   <script src="js/jquery.mobile-1.4.2.min.js"></script>
+   
+
+</head>
+<body>
+   <!-- The page that contains the UI. Themes are a to e. -->
+   <div data-role="page" data-theme="a">
+
+      <!-- The page header -->
+      <div data-role="header" class="ui-header ui-bar-a" role="banner" data-position:"fixed">
+         <div class="bannerbox" style="background-color:#3f8de0; height:109px">
+            <img id="logo" style="float:right" src="images/darts.jpg">
+         </div>
+      </div>
+      <!-- Header end -->
+
+      <!-- Page content -->
+      <div data-role="content" data-theme="e">
+         <ul data-role="listview" data-inset="true" data-content-theme="c" >
+            <li><a href="#">
+               <img src="images/thumb-a.jpg" style="height:80px;" />
+               <h3>Jump to hear about this</h3>
+            </a></li> 
+            <li><a href="#">
+               <img src="images/thumb-b.jpg" style="height:80px;" />
+               <h3>What a cool bridge</h3>
+            </a></li> 
+            <li><a href="#">
+               <img src="images/thumb-c.jpg" style="height:80px;" />
+               <h3>Skeletons in the graveyard</h3>
+            </a></li> 
+            <li><a href="#">
+               <img src="images/thumb-d.jpg" style="height:80px;" />
+               <h3>Don't lose your head</h3>
+            </a></li> 
+         </ul>
+      </div>
+      <!-- Content end -->
+
+      <!-- Footer -->
+      <div data-role="footer" data-theme="a" data-position="fixed">
+         <span>Drogheda Arts Festival 2014</span>
+         <span style="float:right;font-size:smaller;">2-5 May 2014</span>
+      </div>
+      <!-- Footer end -->
+
+   </div>
+   <!-- Page end -->
+
+</body>
+</html>
+
