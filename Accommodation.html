@@ -3,26 +3,24 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>Meath Gold Coast</title> 
+   <title>Test SQLite Database</title> 
 
    <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.2.min.css">
-   <link rel="stylesheet"  href="css/design.css">
 
    <script src="js/jquery.js"></script>
    <script src="js/jquery.mobile-1.4.2.min.js"></script>
-   <script src="js/script.js"></script>
    <script>
-      var ServiceID=QueryString.id;
+
       // Wait for Cordova to load
       document.addEventListener("deviceready", onDeviceReady, false);
 
       // Cordova is ready
       function onDeviceReady() {
-         alert("ready");
+         $("#logmsg").html("ready");
          // Create connection
          var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db"});
 
-         alert("opened");
+         $("#logmsg").html("opened");
          // Select Data
          var sql="SELECT course.name AS cName, student.name AS sName \
                   from course, student \
@@ -31,7 +29,7 @@
 
          var html ="<ul data-role='listview' data-inset='true'";
 
-         alert("before: " + html);
+         $("#logmsg").html("before: " + html);
          db.transaction(function(tx) {
                   tx.executeSql(sql, [], function(tx, res) {
                      for (var iX=0; iX<res.rows.length; iX++) {
@@ -44,7 +42,7 @@
                      html += "</ul">
                   });
          });
-         alert("after: " + html);
+         $("#logmsg").html("after: " + html);
          $("#list").html(html);
       }
    </script>       
@@ -67,6 +65,8 @@
          <ul data-role="listview" data-inset="true">
             <li><a href="index.html">Back</a></li>
          </ul>
+
+         <div id="logmsg"></div>
         
          <div id="list"></div>
       </div>
