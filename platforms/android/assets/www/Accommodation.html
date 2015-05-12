@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Test SQLite Database</title> 
+
+   <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.2.min.css">
+
+   <script src="js/jquery.js"></script>
+   <script src="js/jquery.mobile-1.4.2.min.js"></script>
+   <script>
+
+      // Cordova is ready
+      function pageFunctions() {
+         $("#logmsg").html("ready");
+         // Create connection
+         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast"});
+         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
+                                                    location: 2,
+                                                    createFromLocation: 1});
+
+         $("#logmsg").html("opened");
+         // Select Data
+         var sql="SELECT course.name AS cName, student.name AS sName \
+                  from course, student \
+                  WHERE student.course = course.id \
+                  ORDER BY course.id, student.id";
+
+         var html ="<ul data-role='listview' data-inset='true'";
+
+         $("#logmsg").html("before: " + html);
+         db.transaction(function(tx) {
+                  tx.executeSql(sql, [], function(tx, res) {
+                     for (var iX=0; iX<res.rows.length; iX++) {
+                        html += "<li>"
+                             + res.rows.item(iX).cName
+                             + "-"
+                             + res.rows.item(iX).sName
+                             + "</li>";
+                     }
+                     html += "</ul">
+                  });
+         });
+         $("#logmsg").html("after: " + html);
+         $("#list").html(html);
+      }
+   </script>       
+</head>
+<body>
+   <div data-role="page">
+   <!-- Header end -->
+   
+      <div data-id="dojoheader" data-role="header" data-theme="b" class="ui-header ui-bar-a"
+           style="background-color:#3300CC" data-position="fixed">
+         <div class="bannerbox" style="background-color:#3f8de0; height:109px">
+            <img id="logo" style="float:right;height:109px" src="MGCBanner.JPG">
+         </div>
+         <h1 class="ui-title">Hotels, Guesthouses and Bed & Breakfasts</h1>
+         <a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
+         <a data-icon="home" data-iconpos="notext" data-direction="reverse" href="index.html">Home</a> 
+      </div>
+
+      <div role="main" class="ui-content">
+         <ul data-role="listview" data-inset="true">
+            <li><a href="index.html">Back</a></li>
+         </ul>
+
+         <div data-role="content">
+            MSG:
+            <span id="logmsg"></span>
+         </div>
+        
+         <div data-role="content" id="list"></div>
+      </div>
+      <div data-role="panel" id="left-panel">
+         <div class="panelhtml"></div>
+      </div><!-- /panel -->
+   
+      <div data-role="footer">
+      </div>
+</div>
+<script src="js/index.js"></script>
+</body>
+</html>
