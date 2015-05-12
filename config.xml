@@ -6,7 +6,7 @@
         versionCode = "10" >
 
    <!-- Make sure you're using the appropriate version of PhoneGap -->
-   <preference name="phonegap-version" value="3.1.0" />
+   <preference name="phonegap-version" value="3.7.0" />
 
    <!-- The name of your app -->
    <name>Drogheda Arts Festival Sample App</name>
@@ -44,6 +44,7 @@
    -->
    <!-- We'll use the camera as an example -->
    <gap:plugin name="org.apache.cordova.camera" />
+   <gap:plugin name="com.millerjames01.sqlite-plugin" version="1.0.1" />
 
 </widget>
 
