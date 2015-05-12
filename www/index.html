@@ -70,20 +70,20 @@
          }
 
          // Photo was taken OK
-         function photoOK(imageData) {
+          function photoOK(imageData) {
            var image = document.getElementById('photo');
            image.src = "data:image/jpeg;base64," + imageData;
          }
 
          // Initialise the camera button
-         $(document).ready(function() {
+         function pageFunctions() {
             $("#btnPic").click(function() {
-                navigator.camera.getPicture(photoOK, photoFail,
-		                              { quality: 50,
-                                      destinationType: Camera.DestinationType.DATA_URL
-                                    }); 
-                });
+               navigator.camera.getPicture(photoOK, photoFail,
+		                     { quality: 50,
+                             destinationType: Camera.DestinationType.DATA_URL
+                           }); 
              });
+          }
 
       </script>
    </body>

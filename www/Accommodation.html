@@ -12,10 +12,13 @@
    <script>
 
       // Cordova is ready
-      function onDeviceReady() {
+      function pageFunctions() {
          $("#logmsg").html("ready");
          // Create connection
          var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast"});
+         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
+                                                    location: 2,
+                                                    createFromLocation: 1});
 
          $("#logmsg").html("opened");
          // Select Data
@@ -77,9 +80,6 @@
       <div data-role="footer">
       </div>
 </div>
-<script>
-    // Wait for Cordova to load
-    document.addEventListener("deviceready", onDeviceReady, false);
-</script>
+<script src="js/index.js"></script>
 </body>
 </html>
