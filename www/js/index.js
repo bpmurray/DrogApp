@@ -20,6 +20,7 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         console.log('Received Event: ' + id);
+        $("#logmsg").html('Received Event: ' + id);
         pageFunctions();
     }
 };

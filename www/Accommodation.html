@@ -15,7 +15,6 @@
       function pageFunctions() {
          $("#logmsg").html("ready");
          // Create connection
-         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast"});
          var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
                                                     location: 2,
                                                     createFromLocation: 1});
@@ -68,7 +67,7 @@
 
          <div data-role="content">
             MSG:
-            <span id="logmsg"></span>
+            <span id="logmsg">Start</span>
          </div>
         
          <div data-role="content" id="list"></div>
