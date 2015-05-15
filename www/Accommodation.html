@@ -10,10 +10,10 @@
    <script src="js/jquery.js"></script>
    <script src="js/jquery.mobile-1.4.2.min.js"></script>
    <script>
-      $("#logmsg").html("OK");
+      
 
       // Cordova is ready
-      function pageFunctions() {
+      function onDeviceReady() {
          $("#logmsg").html("ready");
          // Create connection
          var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
@@ -45,6 +45,12 @@
          $("#logmsg").html("after: " + html);
          $("#list").html(html);
       }
+
+      // When the document's ready, wait for the device
+      $( document ).ready(function() {
+         $("#logmsg").html("Ready");
+         document.addEventListener("deviceready", onDeviceReady, false);
+      });
    </script>       
 </head>
 <body>
@@ -80,6 +86,5 @@
       <div data-role="footer">
       </div>
 </div>
-<script src="js/index.js"></script>
 </body>
 </html>
