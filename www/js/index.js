@@ -1,44 +1,56 @@
-var app = {
+ var deviceReadyDeferred = $.Deferred();
+ var jqmReadyDeferred = $.Deferred();
+ var resourcesReady = false;
+
+
+ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        $.when(deviceReadyDeferred, jqmReadyDeferred).then(this.doWhenBothFrameworksReady);
     },
 
     // deviceready Event Handler
     onDeviceReady: function() {
-        var elem = $("#logmsg");
+        deviceReadyDeferred.resolve();
+    },
 
-        if (elem) {
-           var html ="<ul data-role='listview' data-inset='true'";
-
-           // Create connection
-           var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
-                                                     location: 2,
-                                                     createFromLocation: 1});
-
-           elem.html("opened");
-           // Select Data
-           var sql="SELECT course.name AS cName, student.name AS sName \
-                    from course, student \
-                    WHERE student.course = course.id \
-                    ORDER BY course.id, student.id";
-
-
-           elem.html("before: " + html);
-           db.transaction(function(tx) {
-                     tx.executeSql(sql, [], function(tx, res) {
-                        for (var iX=0; iX<res.rows.length; iX++) {
-                           html += "<li>"
-                                + res.rows.item(iX).cName
-                                + "-"
-                                + res.rows.item(iX).sName
-                                + "</li>";
-                        }
-                     });
-            });
-            html += "</ul">
-            $("#list").html(html);
-            elem.html("after: " + html);
-         }
-      }
+    doWhenBothFrameworksReady: function()
+    {
+        resourcesReady = true;
+    }
 };
+
+$(document).on("mobileinit", function () {
+    $.support.cors = true;
+    $.mobile.allowCrossDomainPages = true;
+    $.mobile.phonegapNavigationEnabled = true;
+    jqmReadyDeferred.resolve();
+ });
+
+
+
+function PageShowFunction(e)
+{
+    // we are sure that both frameworks are ready here
+}
+
+function CallPageEvent(funcToCall,e)
+{
+    if(resourcesReady)
+    {
+        return funcToCall(e);
+    }else
+    {
+        setTimeout(function() {
+            CallPageEvent(funcToCall,e);
+        }, 200);
+    }
+}
+
+
+$(document).ready(function () {
+});
+
+app.initialize();
+
