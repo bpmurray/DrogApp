@@ -17,10 +17,6 @@
  
          // global variables
          var db;
-         var shortName = 'WebSqlDB';
-         var version = '1.0';
-         var displayName = 'WebSqlDB';
-         var maxSize = 65535;
           
  
          function errorHandler(transaction, error) {
@@ -41,83 +37,59 @@
             // you can comment this out once you have the application working
             alert("DEBUGGING: we are in the onBodyLoad() function");
  
-            if (!window.openDatabase) {
-              alert('Databases are not supported in this browser.');
-              return;
+            if (!window.sqlitePlugin.openDatabase) {
+               alert('Databases are not supported in this browser.');
+               return;
             }
  
-            // this line tries to open the database base locally on the device
-            // if it does not exist, it will create it and return a database object
-            // stored in variable db
-            db = openDatabase(shortName, version, displayName,maxSize);
+            // Open the DB
+            db = window.sqlitePlugin.openDatabase({
+                            name:               "MeathGoldCoast.db",
+                            location:           2,
+                            createFromLocation: 1
+                         });
+            ListDBValues();
+         }
  
-            // this line will try to create the table User in the database just created/openned
-            db.transaction(function(tx){
-                 // you can uncomment this next line if you want the User table to be empty each time
-                 // the application runs
-                 // tx.executeSql( 'DROP TABLE User',nullHandler,nullHandler);
- 
-                 tx.executeSql( 'CREATE TABLE IF NOT EXISTS User(UserId INTEGER NOT
-                      NULL PRIMARY KEY, FirstName TEXT NOT NULL, LastName TEXT NOT NULL)',
-                      [],nullHandler,errorHandler);
-                 },errorHandler,successCallBack);
-           }
- 
-           // list the values in the database to the screen using jquery to update the #lbUsers element
-           function ListDBValues() {
- 
-              if (!window.openDatabase) {
+         // list the values in the database to the screen using jquery to update the #lbUsers element
+         function ListDBValues() {
+              if (!window.sqlitePlugin.openDatabase) {
                  alert('Databases are not supported in this browser.');
                  return;
               }
+
+              var markup ="<ul data-role='listview' data-inset='true'><li>first</li>";
  
               $('#lbUsers').html('');
  
-              db.transaction(function(transaction) {
-                  transaction.executeSql('SELECT * FROM User;', [],
-                      function(transaction, result) {
-                         if (result != null && result.rows != null) {
-                           for (var i = 0; i < result.rows.length; i++) {
-                              var row = result.rows.item(i);
-                              $('#lbUsers').append('<br>' + row.UserId + '. ' +
-                                                   row.FirstName+ ' ' + row.LastName);
-                           }
+              var sql="SELECT course.name AS cName, student.name AS sName \
+                      from course, student \
+                      WHERE student.course = course.id \
+                      ORDER BY course.id, student.id";
+
+              db.transaction(function(tx) {
+                      tx.executeSql(sql, [], function(tx, res) {
+                         for (var iX=0; iX<res.rows.length; iX++) {
+                            markup += "<li>"
+                                   + res.rows.item(iX).cName
+                                   + "-"
+                                   + res.rows.item(iX).sName
+                                   + "</li>";
                          }
-                      },errorHandler);
-             },errorHandler,nullHandler);
-             return;
-          }
+                      }, errorHandler);
+              },errorHandler,nullHandler);
+
+              markup += "</ul">
  
-         // this is the function that puts values into the database using the values from the text boxes on the screen
-         function AddValueToDB() {
+              $('#lbUsers').html(markup);
  
-            if (!window.openDatabase) {
-                alert('Databases are not supported in this browser.');
-                return;
-            }
+              return;
+         }
  
-           // this is the section that actually inserts the values into the User table
-           db.transaction(function(transaction) {
-               transaction.executeSql('INSERT INTO User(FirstName, LastName) VALUES (?,?)',[$('#txFirstName').val(), $('#txLastName').val()],
-                                   nullHandler,errorHandler);
-           });
- 
-           // this calls the function that will show what is in the User table in the database
-           ListDBValues();
- 
-           return false;
- 
-       }
    </script>
 </head>
 <body onload="onBodyLoad()">
-<h1>WebSQL</h1>
-<input id="txFirstName" type="text" placeholder="FirstName">
-<input id="txLastName" type="text" placeholder="Last Name">
-<input type="button" value="Add record" onClick="AddValueToDB()">
-<input type="button" value="Refresh" onClick="ListDBValues()"> <br>
-<br>
-<span style="font-weight:bold;">Currently stored values:</span>
+<h1>Meath Gold Coast Test DB</h1>
 <span id="lbUsers"></span>
 </body>
 </html> 
