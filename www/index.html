@@ -25,12 +25,6 @@
  
          function nullHandler(){};
  
-         // called when the application loads
-         function onBodyLoad(){
-            alert("DEBUGGING: we are in the onBodyLoad() function");
-            document.addEventListener("deviceready", onDeviceReady, false);
-         }
-
          function onDeviceReady() {
             if (!window.sqlitePlugin.openDatabase) {
                alert('Databases are not supported in this browser.');
@@ -87,6 +81,11 @@
             return;
          }
  
+         // called when the application loads
+         function onBodyLoad(){
+            document.addEventListener("deviceready", onDeviceReady, false);
+         }
+
    </script>
 </head>
 <body onload="onBodyLoad()">
