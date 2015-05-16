@@ -7,50 +7,13 @@
 
    <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.2.min.css">
 
-   <script src="js/jquery-2.1.0.min.js"></script>
-   <script src="js/jquery.mobile-1.4.2.min.js"></script>
-   <script>
+   <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+   <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+   <script type="text/javascript" src="js/index.js"></script>
+   <script type="text/javascript">
+      app.initialize();
+   </script>
 
-      // Cordova is ready
-      function onDeviceReady() {
-         $("#logmsg").html("inPageFunc");
-         var html ="<ul data-role='listview' data-inset='true'";
-
-         // Create connection
-         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast"});
-         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
-                                                    location: 2,
-                                                    createFromLocation: 1});
-
-         $("#logmsg").html("opened");
-         // Select Data
-         var sql="SELECT course.name AS cName, student.name AS sName \
-                  from course, student \
-                  WHERE student.course = course.id \
-                  ORDER BY course.id, student.id";
-
-
-         $("#logmsg").html("before: " + html);
-         db.transaction(function(tx) {
-                  tx.executeSql(sql, [], function(tx, res) {
-                     for (var iX=0; iX<res.rows.length; iX++) {
-                        html += "<li>"
-                             + res.rows.item(iX).cName
-                             + "-"
-                             + res.rows.item(iX).sName
-                             + "</li>";
-                     }
-                  });
-         });
-         html += "</ul">
-         $("#logmsg").html("after: " + html);
-         $("#list").html(html);
-      }
-
-      document.addEventListener("deviceReady", onDeviceReady, false);
-      $("#logmsg").html("In Script");
-      alert("Loaded");
-   </script>       
 </head>
 <body>
    <div data-role="page">
@@ -71,17 +34,11 @@
             <li><a href="index.html">Back</a></li>
          </ul>
 
-         <div data-role="content">
-            MSG:
-            <span class="logmsg">Start</span>
-         </div>
+         <div data-role="content" id="logmsg"></div>
         
          <div data-role="content" id="list"></div>
       </div>
-      <div data-role="panel" id="left-panel">
-         <div class="panelhtml"></div>
-      </div><!-- /panel -->
-   
+
       <div data-role="footer">
       </div>
 </div>
