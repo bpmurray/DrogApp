@@ -23,23 +23,16 @@
             alert('Error: ' + error.message + ' code: ' + error.code);
          }
  
-         // this is called when a successful transaction happens
-         function successCallBack() {
-            alert("DEBUGGING: success");
-         }
- 
          function nullHandler(){};
  
          // called when the application loads
          function onBodyLoad(){
  
-            // This alert is used to make sure the application is loaded correctly
-            // you can comment this out once you have the application working
-            alert("DEBUGGING: we are in the onBodyLoad() function");
- 
             if (!window.sqlitePlugin.openDatabase) {
                alert('Databases are not supported in this browser.');
                return;
+            } else {
+               alert("DEBUGGING: we are in the onBodyLoad() function");
             }
  
             // Open the DB
@@ -48,26 +41,30 @@
                             location:           2,
                             createFromLocation: 1
                          });
+            alert("DEBUGGING: Opened the DB ");
+
             ListDBValues();
          }
  
          // list the values in the database to the screen using jquery to update the #lbUsers element
          function ListDBValues() {
-              if (!window.sqlitePlugin.openDatabase) {
-                 alert('Databases are not supported in this browser.');
-                 return;
-              }
+            if (!window.sqlitePlugin.openDatabase) {
+               alert('Databases are not supported in this browser.');
+               return;
+            } else {
+               alert("DEBUGGING: we are in the ListDBValues() function");
+            }
 
-              var markup ="<ul data-role='listview' data-inset='true'><li>first</li>";
+            var markup ="<ul data-role='listview' data-inset='true'><li>first</li>";
  
-              $('#lbUsers').html('');
+            $('#lbUsers').html('');
  
-              var sql="SELECT course.name AS cName, student.name AS sName \
-                      from course, student \
-                      WHERE student.course = course.id \
-                      ORDER BY course.id, student.id";
+            var sql="SELECT course.name AS cName, student.name AS sName \
+                     from course, student \
+                     WHERE student.course = course.id \
+                     ORDER BY course.id, student.id";
 
-              db.transaction(function(tx) {
+            db.transaction(function(tx) {
                       tx.executeSql(sql, [], function(tx, res) {
                          for (var iX=0; iX<res.rows.length; iX++) {
                             markup += "<li>"
@@ -77,13 +74,13 @@
                                    + "</li>";
                          }
                       }, errorHandler);
-              },errorHandler,nullHandler);
+            },errorHandler,nullHandler);
 
-              markup += "</ul">
+            markup += "</ul">
  
-              $('#lbUsers').html(markup);
+            $('#lbUsers').html(markup);
  
-              return;
+            return;
          }
  
    </script>
