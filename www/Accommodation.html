@@ -12,7 +12,7 @@
    <script>
 
       // Cordova is ready
-      function pageFunctions() {
+      function onDeviceReady() {
          $("#logmsg").html("inPageFunc");
          var html ="<ul data-role='listview' data-inset='true'";
 
@@ -47,7 +47,9 @@
          $("#list").html(html);
       }
 
-         $("#logmsg").html("inPageFunc");
+      document.addEventListener("deviceReady", onDeviceReady, false);
+      $("#logmsg").html("In Script");
+      alert("Loaded");
    </script>       
 </head>
 <body>
