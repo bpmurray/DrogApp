@@ -8,60 +8,47 @@
    <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.2.min.css">
 
    <script src="js/jquery-2.1.0.min.js"></script>
+   <script src="js/jquery.mobile-1.4.2.min.js"></script>
    <script>
-      
-      var deviceReadyDeferred = $.Deferred();
-      var JQueryReadyDeferred = $.Deferred();
-
-      document.addEventListener("deviceReady", deviceReady, false);
-
-      function deviceReady() {
-        deviceReadyDeferred.resolve();
-      }
-
-      $(document).on("mobileinit", function () {
-        JQueryReadyDeferred.resolve();
-      });
-
-      $.when(deviceReadyDeferred, JQueryReadyDeferred).then(LetsGetGoing);
 
       // Cordova is ready
-      function LetsGetGoing() {
-         $(".logmsg").html("ready");
+      function pageFunctions() {
+         $("#logmsg").html("inPageFunc");
          var html ="<ul data-role='listview' data-inset='true'";
 
          // Create connection
-//         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
-//                                                    location: 2,
-//                                                    createFromLocation: 1});
-//
-//         $(".logmsg").html("opened");
-//         // Select Data
-//         var sql="SELECT course.name AS cName, student.name AS sName \
-//                  from course, student \
-//                  WHERE student.course = course.id \
-//                  ORDER BY course.id, student.id";
-//
-//
-//         $(".logmsg").html("before: " + html);
-//         db.transaction(function(tx) {
-//                  tx.executeSql(sql, [], function(tx, res) {
-//                     for (var iX=0; iX<res.rows.length; iX++) {
-//                        html += "<li>"
-//                             + res.rows.item(iX).cName
-//                             + "-"
-//                             + res.rows.item(iX).sName
-//                             + "</li>";
-//                     }
-//                  });
-//         });
+         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast"});
+         var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db",
+                                                    location: 2,
+                                                    createFromLocation: 1});
+
+         $("#logmsg").html("opened");
+         // Select Data
+         var sql="SELECT course.name AS cName, student.name AS sName \
+                  from course, student \
+                  WHERE student.course = course.id \
+                  ORDER BY course.id, student.id";
+
+
+         $("#logmsg").html("before: " + html);
+         db.transaction(function(tx) {
+                  tx.executeSql(sql, [], function(tx, res) {
+                     for (var iX=0; iX<res.rows.length; iX++) {
+                        html += "<li>"
+                             + res.rows.item(iX).cName
+                             + "-"
+                             + res.rows.item(iX).sName
+                             + "</li>";
+                     }
+                  });
+         });
          html += "</ul">
-         $(".logmsg").html("after: " + html);
+         $("#logmsg").html("after: " + html);
          $("#list").html(html);
       }
 
+         $("#logmsg").html("inPageFunc");
    </script>       
-   <script src="js/jquery.mobile-1.4.2.min.js"></script>
 </head>
 <body>
    <div data-role="page">
