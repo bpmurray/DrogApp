@@ -27,6 +27,7 @@
  
          // called when the application loads
          function onBodyLoad(){
+            alert("DEBUGGING: we are in the onBodyLoad() function");
             document.addEventListener("deviceready", onDeviceReady, false);
          }
 
@@ -35,7 +36,7 @@
                alert('Databases are not supported in this browser.');
                return;
             } else {
-               alert("DEBUGGING: we are in the onBodyLoad() function");
+               alert("DEBUGGING: we are in the onDeviceReady() function");
             }
  
             // Open the DB
