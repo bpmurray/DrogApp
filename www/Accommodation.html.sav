@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Test SQLite Database</title> 
+
+   <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.2.min.css">
+
+   <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+   <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+   <script type="text/javascript" src="cordova.js"></script>
+   <script type="text/javascript" src="js/index.js"></script>
+   <script type="text/javascript">
+      app.initialize();
+   </script>
+
+</head>
+<body>
+   <div data-role="page">
+   <!-- Header end -->
+   
+      <div data-id="dojoheader" data-role="header" data-theme="b" class="ui-header ui-bar-a"
+           style="background-color:#3300CC" data-position="fixed">
+         <div class="bannerbox" style="background-color:#3f8de0; height:109px">
+            <img id="logo" style="float:right;height:109px" src="MGCBanner.JPG">
+         </div>
+         <h1 class="ui-title">Hotels, Guesthouses and Bed & Breakfasts</h1>
+         <a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
+         <a data-icon="home" data-iconpos="notext" data-direction="reverse" href="index.html">Home</a> 
+      </div>
+
+      <div role="main" class="ui-content">
+         <ul data-role="listview" data-inset="true">
+            <li><a href="index.html">Back</a></li>
+         </ul>
+
+         <div data-role="content" id="logmsg"></div>
+        
+         <div data-role="content" id="list"></div>
+      </div>
+
+      <div data-role="footer">
+      </div>
+</div>
+</body>
+</html>
