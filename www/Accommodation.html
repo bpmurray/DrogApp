@@ -11,9 +11,23 @@
    <script src="js/jquery.mobile-1.4.2.min.js"></script>
    <script>
       
+      var deviceReadyDeferred = $.Deferred();
+      var JQueryReadyDeferred = $.Deferred();
+
+      document.addEventListener("deviceReady", deviceReady, false);
+
+      function deviceReady() {
+        deviceReadyDeferred.resolve();
+      }
+
+      $(document).on("mobileinit", function () {
+        JQueryReadyDeferred.resolve();
+      });
+
+      $.when(deviceReadyDeferred, JQueryReadyDeferred).then(LetsGetGoing);
 
       // Cordova is ready
-      function onDeviceReady() {
+      function LetsGetGoing() {
          $(".logmsg").html("ready");
          var html ="<ul data-role='listview' data-inset='true'";
 
@@ -47,14 +61,6 @@
          $("#list").html(html);
       }
 
-      // When the document's ready, wait for the device
-      $( document ).ready(function() {
-         $(".logmsg").html("Ready");
-         document.addEventListener("deviceready", onDeviceReady, false);
-      });
-
-
-      $(".logmsg").html("XXXXXXX");
    </script>       
 </head>
 <body>
